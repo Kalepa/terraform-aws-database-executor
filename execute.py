@@ -33,13 +33,17 @@ if __name__ == "__main__":
         raise ValueError(
             'Neither the "db_port" variable nor a "port" field in a secret were provided')
 
+    # Port should be in an integer format
+    port = int(port)
+
     statements = json.loads(os.environ['DB_STATEMENTS'])
     commit_independently = json.loads(os.environ['DB_COMMIT_INDEPENDENTLY'])
     dictionary_result = json.loads(os.environ['DB_DICTIONARY_RESULT'])
 
     results = []
 
-    # logging.info('Connection parameters:\n\tHost: {}\n\tPort: {}\n\tUsername: {}\n\tPassword: ****\n\tDatabase: {}'.format(host, port, user, db_name))
+    # raise Exception(
+    #    'Connection parameters:\n\tHost: {}\n\tPort: {}\n\tUsername: {}\n\tPassword: ****\n\tDatabase: {}'.format(host, port, user, db_name))
 
     if os.environ['DB_TYPE'].lower() == 'mysql':
         # logging.info('Importing MySQL libraries')

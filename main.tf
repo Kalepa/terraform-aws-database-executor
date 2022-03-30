@@ -6,7 +6,7 @@ module "statements_json" {
 
 module "run_sql_resource" {
   source  = "Invicton-Labs/lambda-shell-resource/aws"
-  version = "~> 0.2.2"
+  version = "~> 0.3.0"
 
   count = var.is_resource ? 1 : 0
 
