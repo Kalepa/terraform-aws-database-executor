@@ -1,15 +1,12 @@
 import json
 import os
-import logging
 
 if __name__ == "__main__":
 
     db_secret = {}
     if 'DB_SECRET_ARN' in os.environ:
         import boto3
-        # logging.info('Creating Secrets Manager client')
         secrets_client = boto3.client('secretsmanager')
-        # logging.info('Loading DB secret')
         db_secret = json.loads(secrets_client.get_secret_value(
             SecretId=os.environ['DB_SECRET_ARN']
         )['SecretString'])
@@ -42,15 +39,9 @@ if __name__ == "__main__":
 
     results = []
 
-    # raise Exception(
-    #    'Connection parameters:\n\tHost: {}\n\tPort: {}\n\tUsername: {}\n\tPassword: ****\n\tDatabase: {}'.format(host, port, user, db_name))
-
     if os.environ['DB_TYPE'].lower() == 'mysql':
-        # logging.info('Importing MySQL libraries')
         import mysql.connector
-        # logging.info('Opening MySQL connection')
         with mysql.connector.connect(autocommit=commit_independently, user=user, password=password, host=host, port=port, database=db_name) as cnx:
-            # logging.info('Creating MySQL cursor')
             with cnx.cursor(dictionary=dictionary_result) as cur:
                 for statement in statements:
                     err = None
@@ -86,7 +77,7 @@ if __name__ == "__main__":
                             err_msg = str(err)
                             if hasattr(err, 'message'):
                                 err_msg = err.message
-                            if cur.query is not None:
+                            if hasattr(cur, 'query') and cur.query is not None:
                                 raise Exception(
                                     'Exception: {}\nStatement: {}\nError: {}'.format(type(err).__name__, cur.query, err_msg))
                             else:
