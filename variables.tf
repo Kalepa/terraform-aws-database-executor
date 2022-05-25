@@ -5,7 +5,7 @@ variable "lambda_shell" {
 
 variable "is_resource" {
   description = "Whether to do the execution as a resource. If `false`, it will be done as a data source instead (re-runs on every plan/apply)."
-
+  type        = bool
 }
 
 variable "db_type" {
