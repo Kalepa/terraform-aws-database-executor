@@ -1,12 +1,12 @@
 module "statements_json" {
-  source  = "Invicton-Labs/jsonencode-no-replacements/null"
-  version = "~>0.1.1"
+  source  = "Kalepa/jsonencode-no-replacements/null"
+  version = "~>0.1"
   object  = var.statements
 }
 
 module "run_sql_resource" {
-  source  = "Invicton-Labs/lambda-shell-resource/aws"
-  version = "~> 0.3.0"
+  source  = "Kalepa/lambda-shell-resource/aws"
+  version = "~> 0.3"
 
   count = var.is_resource ? 1 : 0
 
@@ -49,8 +49,8 @@ module "run_sql_resource" {
 }
 
 module "run_sql_data" {
-  source  = "Invicton-Labs/lambda-shell-data/aws"
-  version = "~> 0.2.2"
+  source  = "Kalepa/lambda-shell-data/aws"
+  version = "~> 0.2"
 
   count = var.is_resource ? 0 : 1
 
